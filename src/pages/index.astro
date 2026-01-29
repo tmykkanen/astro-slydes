@@ -2,14 +2,57 @@
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { Button } from "@/components/ui/button";
 import { getEntry } from "astro:content";
+import SlydsContainer from "@/components/Slyds/SlydsContainer.astro";
+import SlydGroup from "@/components/Slyds/SlydGroup.astro";
+import Slyd from "@/components/Slyds/Slyd.astro";
+import RenderSlydGroup from "@/components/Slyds/RenderSlydGroup.astro";
+import StyledText from "@/components/StyledText";
+import { getCollection } from "astro:content";
+import { Image } from "astro:assets";
 
 const config = await getEntry("config", "siteconfig");
+const pages = await getCollection("pages");
+
+const images = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/assets/*.{jpeg,jpg,png,webp,svg}",
+);
+
+const imagePath = `/${config?.data.hero.bgImage}`;
+const selectedImage = imagePath ? images[imagePath] : null;
 ---
 
 <BaseLayout>
-  <main class="layout-base">
-    <h1 class="text-4xl text-foreground">Hello World!</h1>
-    <Button variant="default" className="dark">Shadcn Button</Button>
-    <p>{config?.data.greeting.hello}</p>
-  </main>
+  <SlydsContainer>
+    <SlydGroup class="grid w-full bg-cover bg-right">
+      {
+        selectedImage && (
+          <>
+            <Image
+              src={selectedImage()}
+              alt="Background Image"
+              class="absolute inset-0 w-full h-full object-cover"
+              priority
+            />
+            <div
+              class="bg-muted col-start-1 row-start-1 h-full w-full opacity-85 z-10"
+              aria-hidden="true"
+            />
+          </>
+        )
+      }
+      <Slyd class="layout-base isolate col-start-1 row-start-1 gap-y-8 z-20">
+        <StyledText
+          as="h1"
+          variant="displayXL"
+          set:html={config?.data.hero.title}
+        />
+        <StyledText
+          as="p"
+          className="mt-4 text-2xl normal-case opacity-70 lg:text-4xl"
+          set:html={config?.data.hero.subtitle}
+        />
+      </Slyd>
+    </SlydGroup>
+    <RenderSlydGroup {pages} />
+  </SlydsContainer>
 </BaseLayout>
