@@ -12,12 +12,25 @@ const siteConfig = defineCollection({
       name: z.string(),
       description: z.string(),
     }),
-    greeting: z.object({
-      hello: z.string(),
+    hero: z.object({
+      title: z.string(),
+      subtitle: z.string(),
+      bgImage: z.string(),
     }),
+  }),
+});
+
+const pagesCollection = defineCollection({
+  loader: glob({
+    pattern: "**/*.md",
+    base: "src/content/pages",
+  }),
+  schema: z.object({
+    heading: z.string(),
   }),
 });
 
 export const collections = {
   config: siteConfig,
+  pages: pagesCollection,
 };
