@@ -1,0 +1,30 @@
+---
+import StyledText from "../StyledText";
+import Slyd from "./Slyd.astro";
+import SlydGroup from "./Slyd.astro";
+import { type CollectionEntry } from "astro:content";
+
+interface Props {
+  pages: CollectionEntry<"pages">[];
+}
+
+const { pages } = Astro.props;
+---
+
+<SlydGroup>
+  {
+    pages.map((page) => (
+      <Slyd class="layout-base arrow-down">
+        <StyledText
+          as="h2"
+          className="mb-4 text-2xl font-bold sm:text-3xl md:mb-5 md:text-4xl"
+          set:html={page.data.heading}
+        />
+        <Fragment
+          class="text-neutral text-sm sm:text-base md:text-xl"
+          set:html={page.rendered?.html}
+        />
+      </Slyd>
+    ))
+  }
+</SlydGroup>

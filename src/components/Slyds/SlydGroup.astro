@@ -1,0 +1,26 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+interface Props extends HTMLAttributes<"section"> {}
+
+const { ...attrs } = Astro.props;
+---
+
+<section {...attrs}>
+  <slot />
+</section>
+
+<style>
+  section {
+    overflow-y: hidden;
+    overflow-x: scroll;
+    overscroll-behavior-x: contain;
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 100vw;
+    position: relative;
+    scroll-snap-type: x mandatory;
+    scroll-snap-align: center;
+    scroll-snap-stop: always;
+  }
+</style>

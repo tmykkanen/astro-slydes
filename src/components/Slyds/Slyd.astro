@@ -1,0 +1,24 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+interface Props extends HTMLAttributes<"article"> {}
+
+const { ...attrs } = Astro.props;
+---
+
+<article {...attrs}>
+  <slot />
+</article>
+
+<style>
+  article {
+    background-position: 50%;
+    background-size: cover;
+    height: 100svh;
+    position: relative;
+    width: 100svw;
+    align-content: center;
+    scroll-snap-align: center;
+    scroll-snap-stop: always;
+  }
+</style>
