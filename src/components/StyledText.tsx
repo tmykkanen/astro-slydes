@@ -14,7 +14,7 @@ const textVariants = cva("", {
       heading: "text-xl  uppercase md:text-2xl tracking-wider",
       display: "text-xl font-bold uppercase md:text-2xl",
       displayLG: "text-xl md:text-3xl uppercase font-bold",
-      displayXL: "text-5xl font-bold uppercase sm:text-7xl",
+      displayXL: "text-6xl font-bold uppercase md:text-7xl lg:text-8xl",
     },
   },
   defaultVariants: {
@@ -36,4 +36,4 @@ const StyledText: React.FC<
   );
 };
 
-export { StyledText };
+export default StyledText;
