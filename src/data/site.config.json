@@ -1,0 +1,9 @@
+{
+  "general": {
+    "name": "Astro Template",
+    "description": "This is a template setup for Astro projects"
+  },
+  "greeting": {
+    "hello": "Hello from the config!"
+  }
+}

@@ -1,0 +1,15 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { Button } from "@/components/ui/button";
+import { getEntry } from "astro:content";
+
+const config = await getEntry("config", "siteconfig");
+---
+
+<BaseLayout>
+  <main class="layout-base">
+    <h1 class="text-4xl text-foreground">Hello World!</h1>
+    <Button variant="default" className="dark">Shadcn Button</Button>
+    <p>{config?.data.greeting.hello}</p>
+  </main>
+</BaseLayout>
